@@ -20,7 +20,23 @@ describe('The RegisterUserValidator calss', () => {
         'The name is required.'
       ]);
 
+    });
+
+    test('Adds an error if name is less than 5 characters', () => {
+      
+      const validator = new RegisterUserValidator({
+        name: 'bahd'
+      });
+
+      validator.validateName();
+
+      const { errors } = validator;
+      
+      expect(errors).toEqual([
+        'The name must be longer than 5 characters.'
+      ]);
 
     });
+
   });
 });
