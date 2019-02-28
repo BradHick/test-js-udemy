@@ -16,9 +16,9 @@ describe('The RegisterUserValidator calss', () => {
 
       const errors = validator.errors;
 
-      console.log('====================================');
-      console.log(errors);
-      console.log('====================================');
+      expect(errors).toEqual([
+        'The name is required.'
+      ]);
 
 
     });
