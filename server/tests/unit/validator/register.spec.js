@@ -119,19 +119,22 @@ describe('The RegisterUserValidator class', () => {
 
     test('adds an email token error if user already exists with that email', async ()=> {
       
+      //Delete all users from DB
       await User.destroy({ where: {} });
 
+      //Create a new user with this email
       await User.create({
         name: 'bahdcoder',
         email: 'bahdcoder@gmail.com',
         password: 'password'
       });
 
-
+      //Initialize validator
       const validator = new RegisterUserValidator({
         email: 'bahdcoder@gmail.com'
       });
 
+      //execut evalidator
       await validator.validateEmail();
 
       const { errors } = validator;
