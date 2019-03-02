@@ -2,7 +2,7 @@ import validators from '../../../validators';
 
 const { RegisterUserValidator } = validators;
 
-describe('The RegisterUserValidator calss', () => {
+describe('The RegisterUserValidator class', () => {
 
   describe('The validateName function', () =>{
 
