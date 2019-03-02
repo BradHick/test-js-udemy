@@ -192,6 +192,27 @@ describe('The RegisterUserValidator class', () => {
 
     });
 
+    test('The validateName, validateEmail, validatePassword functions are called in the isValid function', async () => {
+
+      const validator = new RegisterUserValidator({
+        name: 'bahd',
+        password: 'pass',
+        email: 'bahdcoder@gmail.com'
+      });
+
+      //spying functions to make sure that they will be called
+      jest.spyOn(validator, 'validateName');
+      jest.spyOn(validator, 'validateEmail');
+      jest.spyOn(validator, 'validatePassword');
+      
+      await validator.isValid();
+
+      expect(validator.validateName).toHaveBeenCalled();
+      expect(validator.validateEmail).toHaveBeenCalled();
+      expect(validator.validatePassword).toHaveBeenCalled();
+
+    });
+
   });
 
 
