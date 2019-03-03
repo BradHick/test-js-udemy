@@ -30,7 +30,8 @@
     "forever-monitor": "^1.7.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.1.0",
-    "pm2": "^2.9.1"
+    "pm2": "^2.9.1",
+    "supertest": "^3.4.2"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
