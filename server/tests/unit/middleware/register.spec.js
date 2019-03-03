@@ -2,7 +2,7 @@ import middleware from '../../../middleware';
 
 const { registerUserValidator } = middleware;
 
-test('The registerUserValidator call the next function if the validation is sucessful', async () => {
+test('The registerUserValidator calls the next function if the validation is sucessful', async () => {
 
   const req = {
     body: {
@@ -24,5 +24,35 @@ test('The registerUserValidator call the next function if the validation is suce
 
   expect(next).toHaveBeenCalled();
 
+
+});
+
+test('The registerUserValidator calls the sendFailureResponse function if validation fails', async () =>{
+
+  const req = {
+    body: {
+      name: 'bahd',
+      password: 'bahd'
+    }
+  };
+
+
+  const res = {
+    sendFailureResponse: jest.fn()
+  };
+
+  const next = jest.fn();
+
+  await registerUserValidator(req, res, next);
+
+  expect(res.sendFailureResponse).toHaveBeenCalledWith({
+    errors: [
+      'The name must be longer than 5 characters.',
+      'The password must be longer than 5 characters.',
+      'The email is required.'
+    ]
+  }, 422)
+
+  expect(next).toHaveBeenCalledTimes(0);
 
 });
