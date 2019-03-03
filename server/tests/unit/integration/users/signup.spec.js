@@ -47,4 +47,43 @@ describe('The user signup test', () => {
 
   });
 
+  test('Should return validation error for duplicate email', async () =>{
+
+    //Arrange
+    //Prepare free data
+    const fakeUser = {
+      name: 'bahdcoder',
+      email: 'bahdcoder@gmail.com',
+      password: 'password'
+    };
+
+    //Clean the database
+    await User.destroy({ where: {} });
+
+    //Put a user into the database. (register a user before hand)
+    await supertest(app).post('/api/v1/users/signup').send(fakeUser);
+
+
+
+
+    //Action
+    //POST REQUEST to register user with duplicate email
+    const response = await supertest(app).post('/api/v1/users/signup').send(fakeUser);
+
+
+
+    //Assertion
+    //1. making sure that the response from the server has a 422 status
+    expect(response.status).toBe(422);
+
+    //2. making sure that the error from our server matvh the scenario
+    expect(response.body.status).toBe('fail');
+
+    expect(response.body).toMatchSnapshot();
+
+
+
+
+  });
+
 });
