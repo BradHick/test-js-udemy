@@ -1,3 +1,4 @@
+import faker from 'faker';
 import middleware from '../../../middleware';
 import { User } from '../../../database/models';
 
@@ -5,11 +6,10 @@ const { registerUserValidator } = middleware;
 
 test('The registerUserValidator calls the next function if the validation is sucessful', async () => {
 
-  await User.destroy({ where: {} });
   const req = {
     body: {
       name: 'bahdcoder',
-      email: 'bahdcoder@gmail.com',
+      email: faker.internet.email(),
       password: 'password'
     }
   };
