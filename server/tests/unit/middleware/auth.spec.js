@@ -60,4 +60,29 @@ describe('The auth middleware', () => {
 
   });
 
+  test('Should htrow an error if user is not found', async () => {
+
+    const req = {
+      body: {
+        access_token: jwt.sign({ email: 'bahdcodernotfound@email.com' }, config.JWT_SECRET)
+      }
+    };
+
+    const res = {
+      sendFailureResponse: jest.fn()
+    };
+
+    const next = jest.fn();
+
+    await auth(req, res, next);
+
+    expect(res.sendFailureResponse).toBeCalledWith({
+      message: 'Unauthenticated.'
+    }, 401);
+
+
+
+
+  });
+
 });
