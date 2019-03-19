@@ -6,10 +6,12 @@ import app from '../../../../index';
 
 describe('The user signup test', () => {
 
+  beforeEach( async () => {
+    await User.destroy({ where: {} });
+  })
 
   test('Should register a new user', async () => {
 
-    await User.destroy({ where: {} });
     //Arrange
     //get some fake user data
     const fakeUser = {
@@ -56,9 +58,6 @@ describe('The user signup test', () => {
       email: 'bahdcoder@gmail.com',
       password: 'password'
     };
-
-    //Clean the database
-    await User.destroy({ where: {} });
 
     //Put a user into the database. (register a user before hand)
     await supertest(app).post('/api/v1/users/signup').send(fakeUser);
