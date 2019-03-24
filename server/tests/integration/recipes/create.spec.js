@@ -1,11 +1,9 @@
 import supertest from 'supertest';
 import faker from 'faker';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 
 import app from '../../../index';
-import config from '../../../config';
-import { User, Recipe } from '../../../database/models';
+import { Recipe } from '../../../database/models';
+import { generateUser, generateRecipe } from '../../utils/generate';
 
 describe('The create recipe process', () =>{
   
@@ -14,30 +12,10 @@ describe('The create recipe process', () =>{
     //ARRANGE
     
     //create fake recipe
-    const fakeRecipe = {
-      title: faker.lorem.sentence(),
-      description: faker.lorem.sentence(2),
-      timeToCook: 40,
-      imageUrl: faker.internet.url(),
-      ingredients: JSON.stringify([faker.lorem.sentence(), faker.lorem.sentence(), faker.lorem.sentence()]),
-      procedure: JSON.stringify([faker.lorem.sentence(), faker.lorem.sentence(), faker.lorem.sentence()])
-    };
+    const fakeRecipe = await generateRecipe();
 
     //create fake user
-    const fakeUser = {
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      password: faker.internet.password()
-    };
-
-    //generate jwt for the user
-    const user = await User.create({
-      name: fakeUser.name,
-      email: fakeUser.email,
-      password: bcrypt.hashSync(fakeUser.password, 1)
-    });
-
-    const token = jwt.sign({ email: user.email }, config.JWT_SECRET);
+    const { token } = await generateUser();
 
 
     //ACTION

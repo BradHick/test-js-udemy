@@ -1,8 +1,8 @@
-import faker from 'faker';
-import middleware from '../../../middleware';
 import jwt from 'jsonwebtoken';
-import { User } from '../../../database/models';
+
+import middleware from '../../../middleware';
 import config from '../../../config';
+import { generateUser } from '../../utils/generate';
 
 const { auth } = middleware;
 
@@ -10,15 +10,11 @@ describe('The auth middleware', () => {
 
   test('Should call next if user is authenticated', async () => {
 
-    const user = await User.create({
-      name: 'bahdcoder',
-      email: faker.internet.email(),
-      password: 'password'
-    });
+    const { user, token } = await generateUser();
 
     const req = {
       body: {
-        access_token: jwt.sign({ email: user.email }, config.JWT_SECRET)
+        access_token: token
       }
     };
 
