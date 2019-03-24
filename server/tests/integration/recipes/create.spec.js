@@ -3,9 +3,9 @@ import faker from 'faker';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-import app from '../../../../index';
-import config from '../../../../config';
-import { User, Recipe } from '../../../../database/models';
+import app from '../../../index';
+import config from '../../../config';
+import { User, Recipe } from '../../../database/models';
 
 describe('The create recipe process', () =>{
   

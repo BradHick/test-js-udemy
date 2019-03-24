@@ -1,7 +1,7 @@
 import supertest from 'supertest';
-import { User } from '../../../../database/models';
+import { User } from '../../../database/models';
 
-import app from '../../../../index';
+import app from '../../../index';
 
 
 describe('The user signup test', () => {
